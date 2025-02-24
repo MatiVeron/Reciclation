@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 24-02-2025 a las 13:34:16
+-- Servidor: 127.0.0.1:3307
+-- Tiempo de generación: 24-02-2025 a las 20:53:37
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -41,7 +41,9 @@ CREATE TABLE `pedidos` (
 INSERT INTO `pedidos` (`id`, `fecha_pedido`, `id_estado`, `id_vecino`) VALUES
 (1, '2025-02-24', 1, 1),
 (2, '2025-02-24', 1, 1),
-(3, '2025-02-24', 1, 1);
+(3, '2025-02-24', 1, 1),
+(4, '2025-02-24', 1, 3),
+(5, '2025-02-24', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -62,7 +64,9 @@ CREATE TABLE `pedidos_detalle` (
 --
 
 INSERT INTO `pedidos_detalle` (`id`, `id_pedido`, `material`, `cantidad`, `tipo`) VALUES
-(1, 3, '1111', 22, '2');
+(1, 3, '1111', 22, '2'),
+(2, 4, '111', 120, 'Camion'),
+(3, 5, '111', 120, '155212');
 
 -- --------------------------------------------------------
 
@@ -107,12 +111,21 @@ CREATE TABLE `personas` (
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL DEFAULT 0,
+  `id` int(11) NOT NULL,
+  `DNI` varchar(8) NOT NULL,
+  `legajo` varchar(4) NOT NULL,
   `nombre` varchar(50) DEFAULT NULL,
   `apellido` varchar(50) DEFAULT NULL,
   `contrasenia` varchar(150) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `DNI`, `legajo`, `nombre`, `apellido`, `contrasenia`, `email`) VALUES
+(3, '37675506', '1234', 'Matias', 'Veron', '$2y$10$4lz0TDKBeGS7yutLnaTq6OYJQfBeFL1lUbH2a/ZuyC0OfSv0yycUC', 'mati_veron57@hotmail.com');
 
 --
 -- Índices para tablas volcadas
@@ -143,6 +156,14 @@ ALTER TABLE `personas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`),
+  ADD KEY `id_2` (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -150,13 +171,13 @@ ALTER TABLE `personas`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos_detalle`
 --
 ALTER TABLE `pedidos_detalle`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos_estado`
@@ -169,6 +190,12 @@ ALTER TABLE `pedidos_estado`
 --
 ALTER TABLE `personas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
